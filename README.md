@@ -31,14 +31,20 @@ This repository contains a collection of text-to-speech (TTS) models and the nec
 This models are intented to be used for speech synthesis in Basque, Galician, Catalan and Spanish.  
 ## Installation  
 You will need to install huggingface_hub package with the following command.  
-```pip install huggingface_hub```
+```bash
+pip install huggingface_hub
+```  
 ## How to use
 ### Python
 Use the synthesize.py script to generate speech. All available models are listed in the sections above. Before running the script, navigate to the repository directory:  
-```cd Ahotts```
+```bash 
+cd Ahotts
+```  
 
 For help:  
-```python3 synthesize.py -h```    
+```bash 
+python3 synthesize.py -h
+```    
 Example commands:  
 ```bash
 python3 synthesize.py -t "Antton naiz, zer moduz zaude." -l eu -m antton -o audio_name  
