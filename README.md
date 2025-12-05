@@ -2,6 +2,7 @@
 ## Description
 This repository contains the necessary tools to synthesize speech for Basque (eu), Galician (gl), Catalan (ca) and Spanish (es). The voices used are all based on the VITS architecture proposed by [Kim et al. (2021)](https://arxiv.org/abs/2106.06103).   
 **Disclaimer: The TTS voices are not uploaded to this Github repository, they are uploaded to a HuggingFace repo. The download of the voices is done automatically when the synthesize.py script is executed.**
+**Some of the voices below might not have been uploaded yet.**
 
 * Basque [eu]:  
     - [antton](https://huggingface.co/HiTZ/TTS-eu_antton)     
