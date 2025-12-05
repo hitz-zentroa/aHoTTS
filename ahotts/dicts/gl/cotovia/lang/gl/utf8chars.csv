@@ -1,0 +1,110 @@
+# Mapping from UTF-8 special characters to words
+
+€, euros
+$, dólares
+¥, iens
+£, libras
+
+K€,mil euros
+K$,mil dólares
+K¥,mil iens
+K£,mil libras
+
+M€,millóns de euros
+M$,millóns de dólares
+M¥,millóns de iens
+M£,millóns de libras
+
+B€,billóns de euros
+B$,billóns de dólares
+B¥,billóns de iens
+B£,billóns de libras
+
+℃, graos Celsius
+°C, graos Celsius
+ºC, graos Celsius
+
+℉, graos Farenheit
+°F, graos Farenheit
+ºF, graos Farenheit
+
+# Math symbols
+ħ, constante de planck reducida
+µ, micro
+𝜆, Lambda
+∑, sumatoria
+≈, aproximadamente igual que
+≠, distinto que 
+≥, maior o igual que
+≤, menor o igual que 
+∞, infinito
+√, raiz cadrada
+², ao cadrado
+³, ao cubo
+×, multiplicación
+÷, dividido por
+±, máis o menos
+∫, integral
+∂, derivativa parcial
+∇, nable
+≡, congruente a
+≜, definido como
+⁰, superscrito zero
+ⁱ, superscrito uno
+ⁿ, superscrito n
+⁻, superscrito menos
+₀, subscrito 0
+𝑓, función f
+𝑥, x
+ˣ, x
+
+# Greek symbols
+Α, alpha
+Β, beta
+Γ, gamma
+Δ, delta
+Ε, epsilon
+Ζ, zeta
+Η, eta
+Θ, theta
+Ι, iota
+Κ, kappa
+Λ, lambda
+Μ, mu
+Ν, nu
+Ξ, xi
+Ο, omicron
+Π, pi
+Ρ, rho
+Σ, sigma
+Τ, tau
+Υ, upsilon
+Φ, phi
+Χ, chi
+Ψ, psi
+Ω, omega
+
+α, alpha
+β, beta
+γ, gamma
+δ, delta
+ε, epsilon
+ζ, zeta
+η, eta
+θ, theta
+ι, iota
+κ, kappa
+λ, lambda
+μ, mu
+ν, nu
+ξ, xi
+ο, omicron
+π, pi
+ρ, rho
+σ, sigma
+τ, tau
+υ, upsilon
+φ, phi
+χ, chi
+ψ, psi
+ω, omega
