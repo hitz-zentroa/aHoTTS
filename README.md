@@ -10,8 +10,8 @@ This repository contains a collection of text-to-speech (TTS) models and the nec
     - [brais](https://huggingface.co/HiTZ/TTS-gl_brais)  
     - [celtia](https://huggingface.co/HiTZ/TTS-gl_celtia)  
     - [iago](https://huggingface.co/HiTZ/TTS-gl_iago)  
-    - icia  
-    - paulo  
+    - [icia](https://huggingface.co/HiTZ/TTS-gl_icia) 
+    - [paulo](https://huggingface.co/HiTZ/TTS-gl_paulo)   
     - [sabela](https://huggingface.co/HiTZ/TTS-gl_sabela)   
 * Catalan [ca]:  
     - [pau](https://huggingface.co/HiTZ/TTS-ca_pau)  
