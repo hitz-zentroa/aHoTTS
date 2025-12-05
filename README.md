@@ -1,17 +1,18 @@
 # Aholab TTS Synthesis models
 ## Description
 This repository contains a collection of text-to-speech (TTS) models and the necessary tools to synthesize speech for Basque (eu), Galician (gl), Catalan (ca) and Spanish (es). All voices are based on the VITS architecture proposed by [Kim et al. (2021)](https://arxiv.org/abs/2106.06103).   
+*** The TTS models are not uploaded to this Github repository, they are uploaded to a HuggingFace repo. The download is done automatically when the synthesize.py script is runned. ***
 
 * Basque [eu]:  
     - antton   
     - maider  
 * Galician [gl]:  
-    - brais  
+    - [brais](https://huggingface.co/HiTZ/TTS-gl_sabela)  
     - celtia  
     - iago  
     - icia  
     - paulo  
-    - sabela  
+    - [sabela](https://huggingface.co/HiTZ/TTS-gl_sabela)   
 * Catalan [ca]:  
     - pau  
     - ona  
@@ -27,10 +28,13 @@ This repository contains a collection of text-to-speech (TTS) models and the nec
     - alejandro  
 
 ## Uses  
-This models are intented to be used for speech synthesis in Basque, Galician, Catalan and Spanish. 
+This models are intented to be used for speech synthesis in Basque, Galician, Catalan and Spanish.  
+## Installation  
+You will need to install huggingface_hub package with the following command.  
+```pip install huggingface_hub```
 ## How to use
 ### Python
-Use the synthesize.py script to generate speech. All avalaible models are listed in the sections above. Before running the script, navigate to the repository directory:  
+Use the synthesize.py script to generate speech. All available models are listed in the sections above. Before running the script, navigate to the repository directory:  
 ```cd Ahotts```
 
 For help:  
