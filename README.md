@@ -38,7 +38,7 @@ pip install huggingface_hub
 ### Python
 Use the synthesize.py script to generate speech. All available models are listed in the sections above. Before running the script, navigate to the repository directory:  
 ```bash
-cd Ahotts
+cd aHoTTS
 ```  
 
 For help:  
