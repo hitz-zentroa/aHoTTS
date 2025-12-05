@@ -4,18 +4,18 @@ This repository contains a collection of text-to-speech (TTS) models and the nec
 *** The TTS models are not uploaded to this Github repository, they are uploaded to a HuggingFace repo. The download is done automatically when the synthesize.py script is executed. ***
 
 * Basque [eu]:  
-    - antton   
-    - maider  
+    - [antton](https://huggingface.co/HiTZ/TTS-eu_antton)     
+    - [maider](https://huggingface.co/HiTZ/TTS-eu_maider)   
 * Galician [gl]:  
-    - [brais](https://huggingface.co/HiTZ/TTS-gl_sabela)  
-    - celtia  
-    - iago  
+    - [brais](https://huggingface.co/HiTZ/TTS-gl_brais)  
+    - [celtia](https://huggingface.co/HiTZ/TTS-gl_celtia)  
+    - [iago](https://huggingface.co/HiTZ/TTS-gl_iago)  
     - icia  
     - paulo  
     - [sabela](https://huggingface.co/HiTZ/TTS-gl_sabela)   
 * Catalan [ca]:  
-    - pau  
-    - ona  
+    - [pau](https://huggingface.co/HiTZ/TTS-ca_pau)  
+    - [ona](https://huggingface.co/HiTZ/TTS-ca_ona)  
     - bet  
     - eli  
     - eva  
