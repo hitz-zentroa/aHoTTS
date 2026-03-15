@@ -1,45 +1,68 @@
+import os
+import sys
 import argparse
 import subprocess
-import os
+import shlex
 import shutil
+import tempfile
+import re
 from huggingface_hub import hf_hub_download
 
-def synthesize(text, language, model,output):
+script_file = os.path.abspath(__file__)
+script_dir  = os.path.dirname(script_file)
+
+def synthesize(text, language, model, output=None):
+    use_tmp = False
+    if output:
+        if re.search(r"\.wav", output, re.IGNORECASE) is None:
+            output += ".wav"
+        out_path = output
+    else:
+        tmp = tempfile.NamedTemporaryFile(suffix=".wav", delete=False)
+        out_path = tmp.name
+        tmp.close()
+        use_tmp = True
+
+    quoted = shlex.quote(text)
     if(language=='eu'):
-        script = f"""
-        echo "{text}" | iconv -f UTF-8 -t ISO-8859-1 | ./ahotts/tts -Lang={language} -Method=Vits -HDic=./ahotts/dicts/{language}/eu_dicc -voice_path=./ahotts/voices/{language}/{model} ./output/{output}.wav
-        """
+        script = f"echo {quoted} | iconv -f UTF-8 -t ISO-8859-1 | {script_dir}/ahotts/tts -Lang={language} -Method=Vits -HDic={script_dir}/ahotts/dicts/{language}/eu_dicc -voice_path={script_dir}/ahotts/voices/{language}/{model} {out_path}"
     elif(language=='gl'):
-        script = f"""
-        echo "{text}" | ./ahotts/tts -Lang={language} -Method=Vits -HDicDB=./ahotts/dicts/{language}/cotovia -voice_path=./ahotts/voices/{language}/{model} ./output/{output}.wav
-        """
+        script = f"echo {quoted} | {script_dir}/ahotts/tts -Lang={language} -Method=Vits -HDicDB={script_dir}/ahotts/dicts/{language}/cotovia -voice_path={script_dir}/ahotts/voices/{language}/{model} {out_path}"
     elif(language=='ca'):
-        script = f"""
-        echo "{text}" | ./ahotts/tts -Lang={language} -Method=Vits -HDic=./ahotts/dicts/{language}/espeak-ng-data -voice_path=./ahotts/voices/{language}/{model} ./output/{output}.wav
-        """
-    elif(language=='es'):   
-        script = f"""
-        echo "{text}" | iconv -f UTF-8 -t ISO-8859-1 | ./ahotts/tts -Lang={language} -Method=Vits -HDic=./ahotts/dicts/{language}/es_dicc -voice_path=./ahotts/voices/{language}/{model} ./output/{output}.wav
-        """
-    subprocess.run(script, shell=True)
-    print("Synthesis completed. Output file:", "./output/" + output + ".wav")
+        script = f"echo {quoted} | {script_dir}/ahotts/tts -Lang={language} -Method=Vits -HDic={script_dir}/ahotts/dicts/{language}/espeak-ng-data -voice_path={script_dir}/ahotts/voices/{language}/{model} {out_path}"
+    elif(language=='es'):
+        script = f"echo {quoted} | iconv -f UTF-8 -t ISO-8859-1 | {script_dir}/ahotts/tts -Lang={language} -Method=Vits -HDic={script_dir}/ahotts/dicts/{language}/es_dicc -voice_path={script_dir}/ahotts/voices/{language}/{model} {out_path}"
 
+    subprocess.run(script, shell=True, stderr=subprocess.DEVNULL if use_tmp else None)
 
+    if use_tmp:
+        with open(out_path, 'rb') as f:
+            sys.stdout.buffer.write(f.read())
+        os.unlink(out_path)
+    else:
+        print(f"Synthesis completed. Output file: {out_path}", file=sys.stderr)
+
+def getArgs():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-t', '--text',     type=str, required = True, help='text to synthesize')
+    parser.add_argument('-l', '--language', type=str,required = True,  choices=['eu', 'gl','ca','es'], help='language')
+    parser.add_argument('-m', '--model',    type=str,required = True,  help='voice used for synthesis')
+    parser.add_argument('-o', '--output',   type=str,                  help='output file name (omit to write to stdout)')
+    args = parser.parse_args()
+    return parser,args
 
 if __name__ == "__main__":
     vocesCa = ["bet", "eli", "eva", "jan", "mar", "ona", "pau", "pep", "pol"]
     vocesEu = ["antton", "maider"]
     vocesEs = ["laura", "alejandro"]
     vocesGl = voces = ["brais", "celtia", "iago", "icia", "paulo", "sabela"]
-    parser = argparse.ArgumentParser()
-    parser.add_argument('-t', '--text', type=str, required = True, help='text to synthesize')
-    parser.add_argument('-l', '--language', type=str,required = True, choices=['eu', 'gl','ca','es'], help='language')
-    parser.add_argument('-m', '--model', type=str,required = True, help='voice used for synthesis')
-    parser.add_argument('-o', '--output', type=str,required = True, help='output file name')
-    args = parser.parse_args()
-    model_dir = "./ahotts/voices/" + args.language + "/" + args.model + ""
-    repo_id = "HiTZ/TTS-" + args.language + "_" + args.model + ""
-    filename = "vits.onnx"
+
+    parser, args = getArgs()
+
+    model_dir = f"{script_dir}/ahotts/voices/{args.language}/{args.model}"
+    repo_id   = f"HiTZ/TTS-{args.language}_{args.model}"
+    filename  = "vits.onnx"
+
     if args.language == 'ca':
         modelos_validos = vocesCa
     elif args.language == 'eu':
@@ -51,10 +74,12 @@ if __name__ == "__main__":
         
     if args.model not in modelos_validos:
         parser.error(f"The selected voice is not valid for this language: {args.language}. Please, select a voice from the following list: {modelos_validos}")
+        sys.exit(1)
+
     if os.path.isfile(model_dir + "/vits.onnx"):
-        print("Model already downloaded")
+        print("Model already downloaded", file=sys.stderr)
     else:
-        print("Please wait while the model is downloaded (you will need internet connection)")
+        print("Please wait while the model is downloaded (you will need internet connection)", file=sys.stderr)
         file_path = hf_hub_download(
             repo_id=repo_id,
             filename=filename,
@@ -63,6 +88,4 @@ if __name__ == "__main__":
         dest_path = os.path.join(model_dir, "vits.onnx")
         shutil.copy2(file_path, dest_path)
     
-    synthesize(args.text, args.language, args.model,args.output)
-
-
+    synthesize(args.text, args.language, args.model, output=args.output)
